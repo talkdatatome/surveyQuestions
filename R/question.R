@@ -1,11 +1,15 @@
 
+#' @export
 question <- function(id, questionText, answersText, data=NULL){
     x <- structure(list(id=id, questionText=questionText, answersText=answersText, data=data), class="question")
     x
 }
 
+#' @export
 ask <- function(q){ UseMethod("ask") }
+#' @export
 ask.question <- function(q){ warning("Unknown question. Returning NULL") }
+#' @export
 ask.questionMCOA <- function(q){ 
     print(q$questionText)
     for(ans in 1:length(q$answersText)){
@@ -26,12 +30,15 @@ ask.questionMCOA <- function(q){
 }
 
 
+#' @export
 addResult <- function(q, user_id, ans){ UseMethod("addResult") }
+#' @export
 addResult.default <- function(q, user_id, ans){ 
     q$data <- rbind(q$data, data.frame(id=user_id, ans=ans))
     q
 }
 
+#' @export
 questionMCOA <- function(id, questionText, answersText, type, answerDirection){
     x <- question(id, questionText, answersText)
     x$type <- type
