@@ -34,6 +34,9 @@ ask.questionMCOA <- function(q){
 addResult <- function(q, user_id, ans){ UseMethod("addResult") }
 #' @export
 addResult.default <- function(q, user_id, ans){ 
+    if(!(ans %in% 1:length(q$answersText))){
+        stop("answer position does not seem to be in range of possible answers!")
+    }
     q$data <- rbind(q$data, data.frame(id=user_id, ans=ans))
     q
 }
